@@ -1,0 +1,59 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  SuggestExtensions: false
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+
+Rails:
+  Enabled: true
+
+Rails/I18nLocaleAssignment:
+   Exclude:
+    - 'spec/**/*'
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'spec/**/*'
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Max: 150
+
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/CyclomaticComplexity:
+  Max: 20
+
+Metrics/MethodLength:
+  Max: 35
+  Exclude:
+    - 'db/migrate/*'
+    - 'spec/**/*'
+
+Metrics/AbcSize:
+  Max: 25
+  Exclude:
+    - 'db/migrate/*'
+    - 'spec/**/*'
+
+Metrics/BlockLength:
+  Max: 55
+  Exclude:
+    - 'db/migrate/*'
+    - 'spec/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false

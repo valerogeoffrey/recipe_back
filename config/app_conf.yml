@@ -1,0 +1,25 @@
+default:
+  api:
+    pagination:
+      default_page: 0
+      default_per_page: 20
+      max_per_page: 1000000
+  validation:
+    recipes:
+      title_max_length: 200
+      max_ingredient_ids: 50
+    ingredients:
+      title_max_length: 60
+      max_ingredient_ids: 50
+  scoring:
+    bonus_all_match: 20
+    bonus_small_recipe: 10
+    bonus_mid_recipe: 5
+    small_recipe_treshold: 5
+    mid_recipe_treshold: 8
+  normalization:
+    batch: 100
+development: {}
+staging: {}
+test: {}
+production: {}
