@@ -41,7 +41,7 @@ RSpec.describe Recipes::Normalize::BatchOrchestrator, type: :service do
 
         Ingredient.ingredient_cache['flour'] = ingredient.id
 
-        allow(Ingredient).to receive(:parse).and_return(Recipes::Normalize::Result.success(parsed_ingredient))
+        allow(Ingredient).to receive(:parse).and_return(Result.success(parsed_ingredient))
         allow(Ingredient).to receive(:extract_ingredient_name).and_return('flour')
 
         allow(Ingredient).to receive(:insert_all)

@@ -53,13 +53,13 @@ RSpec.describe Recipes::Normalize do
     let(:json_recipes) { [{ name: 'Test Recipe' }] }
 
     before do
-      allow(Recipes::Normalize::Engine).to receive(:process).and_return([])
+      allow(Recipes::Normalize::BatchOrchestrator).to receive(:process).and_return([])
     end
 
     it 'calls the Engine instance' do
       described_class.call(json_recipes)
 
-      expect(Recipes::Normalize::Engine).to have_received(:process)
+      expect(Recipes::Normalize::BatchOrchestrator).to have_received(:process)
     end
 
     context 'with multiple recipes' do
@@ -73,7 +73,7 @@ RSpec.describe Recipes::Normalize do
       it 'passes all recipes to Engine' do
         described_class.call(json_recipes)
 
-        expect(Recipes::Normalize::Engine).to have_received(:process)
+        expect(Recipes::Normalize::BatchOrchestrator).to have_received(:process)
       end
     end
   end
