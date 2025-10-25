@@ -27,6 +27,7 @@ module Recipes
         end
       }
 
+      # We assume that the relevance sorting is only applied after applying the scoring scopes
       scope :order_by_relevance, lambda { |sort_param|
         return all if sort_param.blank?
 

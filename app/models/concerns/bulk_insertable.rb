@@ -30,7 +30,7 @@ module BulkInsertable
         ingredient_id = Ingredient.cached_ingredient_id(ingredient_name)
 
         unless ingredient_id
-          Rails.logger.error "[CRITICAL] Ingredient '#{ingredient_name}' not in cache!"
+          Rails.logger.error "[CRITICAL] Ingredient '#{ingredient_name}' not in cache"
           next
         end
 

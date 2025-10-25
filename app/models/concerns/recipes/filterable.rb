@@ -5,6 +5,14 @@ module Recipes
     extend ActiveSupport::Concern
 
     included do
+      def self.filter_by(params)
+        recipes = all
+        recipes = recipes.search_by_title(params[:title]) if params[:title].present?
+        recipes = recipes.with_ingredient_scoring(recipes, params[:ingredient_ids]) if params[:ingredient_ids].present?
+        recipes = recipes.with_ingredient_advanced_scoring(recipes, params[:ingredients]) if params[:ingredients].present?
+        recipes
+      end
+
       scope :search_by_title, lambda { |query, _locale = I18n.locale.to_s|
         return all if query.blank?
 
@@ -53,23 +61,12 @@ module Recipes
           scope = scope.joins(:recipe_ingredients)
                        .where(recipe_ingredients: { ingredient_id: filter[:ingredient_id] })
 
-          # Filter by maximum quantity if specified (user has X, show recipes needing <= X)
           scope = scope.where(recipe_ingredients: { quantity_value: ..(filter[:quantity]) }) if filter[:quantity].present?
-
-          # Filter by exact unit if specified
           scope = scope.where(recipe_ingredients: { unit: filter[:unit] }) if filter[:unit].present?
         end
 
         scope.distinct
       }
-
-      def self.filter_by(params)
-        recipes = all
-        recipes = recipes.search_by_title(params[:title]) if params[:title].present?
-        recipes = recipes.with_ingredient_scoring(recipes, params[:ingredient_ids]) if params[:ingredient_ids].present?
-        recipes = recipes.with_ingredient_advanced_scoring(recipes, params[:ingredients]) if params[:ingredients].present?
-        recipes
-      end
     end
   end
 end

@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 module Ingredients
+
   module Parsable
     extend ActiveSupport::Concern
 
     class_methods do
       def parse(ingredient_string, config: { enable_fallback: true })
-        result = parse_with_ingreedy(ingredient_string)
+        result = parse_with_ingreedy(ingredient_string) # Slow operation
         return Result.success(result) if result
 
         result = parse_with_food_parser(ingredient_string)
@@ -79,8 +80,7 @@ module Ingredients
         # Remove common quantity patterns
         cleaned = ingredient_string.to_s.strip
         cleaned = cleaned.gsub(%r{^\d+[\d\s/.,]*\s*}, '') # Remove leading numbers
-        cleaned = cleaned.gsub(/^(cup|cups|teaspoon|teaspoons|tbsp|tablespoon|tablespoons|ounce|ounces|oz|gram|grams|g|kg|pound|pounds|lb|lbs|can|cans|package|packages|slice|slices|clove|cloves|pint|pints|quart|quarts|liter|liters|ml|dl)s?\s+/i, '') # Remove units
-
+        cleaned = cleaned.gsub(RecipeIngredients::Units.units_regex, '')
         return nil if cleaned.blank?
 
         OpenStruct.new(ingredient: cleaned, amount: nil, unit: nil)

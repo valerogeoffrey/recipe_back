@@ -14,5 +14,9 @@ module RecipeIngredients
     ].freeze
 
     FRACTIONS = '¼½¾⅓⅔⅕⅙⅛⅜⅝⅞'
+
+     def self.units_regex
+      /^(#{UNITS.join('|')})s?\s+/i
+    end
   end
 end
