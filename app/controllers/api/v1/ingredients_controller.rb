@@ -32,7 +32,6 @@ module Api
         @filters ||= begin
           filter_params = params.fetch(:filter, {}).permit(:name, ids: [])
 
-          # sanitizing steps
           cleaned_filters = filter_params.to_h
           cleaned_filters[:name] = cleaned_filters[:name]&.strip&.presence
           cleaned_filters[:ids] = Array(cleaned_filters[:ids]).map(&:to_i).uniq.compact
