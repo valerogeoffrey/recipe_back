@@ -4,7 +4,6 @@
 require 'rails_helper'
 
 RSpec.describe RequestCacheable do
-  # classe factice pour inclure le module
   class DummyCache
     include RequestCacheable
   end

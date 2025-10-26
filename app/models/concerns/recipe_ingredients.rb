@@ -10,13 +10,13 @@ module RecipeIngredients
       ounce ounces oz gram grams g kg pound pounds lb lbs
       can cans package packages slice slices clove cloves
       pint pints quart quarts liter liters ml dl
-      tablespoon(s) teaspoon(s)
     ].freeze
 
     FRACTIONS = '¼½¾⅓⅔⅕⅙⅛⅜⅝⅞'
 
      def self.units_regex
-      /^(#{UNITS.join('|')})s?\s+/i
+      units_with_parentheses = UNITS + ['tablespoon\\(s\\)', 'teaspoon\\(s\\)']
+      /^(#{units_with_parentheses.join('|')})s?\s+/i
     end
   end
 end

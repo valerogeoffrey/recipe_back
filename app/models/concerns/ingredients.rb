@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'ostruct'
+
 module Ingredients
 
   module Parsable
@@ -44,7 +46,7 @@ module Ingredients
       end
 
       def extract_unit(parsed)
-        return :unit unless parsed.respond_to?(:unit) && parsed.respond_to?(:container_unit)
+        return :unit unless parsed.respond_to?(:unit) || parsed.respond_to?(:container_unit)
         return parsed.unit if parsed.respond_to?(:unit)
         return parsed.container_unit if parsed.respond_to?(:container_unit)
 

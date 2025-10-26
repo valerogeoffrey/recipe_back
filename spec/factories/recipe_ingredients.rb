@@ -15,7 +15,6 @@
 #
 FactoryBot.define do
   factory :recipe_ingredient do
-    association :recipes
     association :ingredient
     quantity_value { 2 }
   end
