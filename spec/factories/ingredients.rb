@@ -9,6 +9,10 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
+# Indexes
+#
+#  index_ingredients_on_default_name  (default_name) UNIQUE
+#
 FactoryBot.define do
   factory :ingredient do
     sequence(:default_name) { |n| "Ingredient #{n}" }

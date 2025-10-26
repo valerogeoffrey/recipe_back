@@ -5,7 +5,7 @@ module BulkInsertable
 
   class_methods do
     def bulk_create_ingredients(names)
-      new_names = names.select { |name| name.present? && !Ingredient.cached_ingredient_id(name) }
+      new_names = names.select { |name| name.present? && !Ingredient.ingredient_id(name) }
       return if new_names.empty?
 
       ingredients_to_insert = new_names.map do |name|
@@ -14,10 +14,8 @@ module BulkInsertable
 
       begin
         insert_all(ingredients_to_insert, unique_by: :default_name)
-        Ingredient.cache_ingredients!(new_names)
       rescue ActiveRecord::RecordNotUnique => e
         Rails.logger.warn "[DUPLICATE] Ingredient duplicate: #{e.message}"
-        Ingredient.cache_ingredients!(new_names)
       end
     end
 
@@ -27,15 +25,14 @@ module BulkInsertable
       ri_to_insert = []
       recipe_ingredients_data.each do |data|
         ingredient_name = data[:ingredient_name]
-        ingredient_id = Ingredient.cached_ingredient_id(ingredient_name)
+        ingredient_id = Ingredient.ingredient_id(ingredient_name)
 
         unless ingredient_id
           Rails.logger.error "[CRITICAL] Ingredient '#{ingredient_name}' not in cache"
           next
         end
 
-        cache_key = "#{data[:original]}_#{ingredient_id}"
-        next if RecipeIngredient.recipe_ingredient_exists?(cache_key)
+        next if RecipeIngredient.recipe_ingredient_exists?(data[:original])
 
         ri_to_insert << {
           default_name: data[:original],
@@ -46,8 +43,6 @@ module BulkInsertable
           created_at: Time.current,
           updated_at: Time.current
         }
-
-        RecipeIngredient.mark_recipe_ingredient_cached(cache_key)
       end
 
       RecipeIngredient.insert_all(ri_to_insert) if ri_to_insert.any?

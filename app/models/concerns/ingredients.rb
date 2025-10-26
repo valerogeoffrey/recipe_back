@@ -3,7 +3,6 @@
 require 'ostruct'
 
 module Ingredients
-
   module Parsable
     extend ActiveSupport::Concern
 

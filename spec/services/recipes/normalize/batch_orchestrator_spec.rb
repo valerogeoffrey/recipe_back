@@ -39,8 +39,6 @@ RSpec.describe Recipes::Normalize::BatchOrchestrator, type: :service do
         allow(Recipe).to receive(:find_by).and_return(nil)
         allow(Recipe).to receive(:find_or_create_by!).and_return(recipe)
 
-        Ingredient.ingredient_cache['flour'] = ingredient.id
-
         allow(Ingredient).to receive(:parse).and_return(Result.success(parsed_ingredient))
         allow(Ingredient).to receive(:extract_ingredient_name).and_return('flour')
 
@@ -77,13 +75,6 @@ RSpec.describe Recipes::Normalize::BatchOrchestrator, type: :service do
 
         expect(results).to be_an(Array)
       end
-    end
-  end
-
-  describe 'delegations' do
-    it 'uses Ingredient for caching' do
-      expect(Ingredient).to receive(:ingredient_cache).and_return({})
-      Ingredient.ingredient_cache
     end
   end
 end

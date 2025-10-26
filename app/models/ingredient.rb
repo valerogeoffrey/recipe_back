@@ -9,8 +9,11 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
+# Indexes
+#
+#  index_ingredients_on_default_name  (default_name) UNIQUE
+#
 class Ingredient < ApplicationRecord
-  include Cacheable
   include BulkInsertable
   include Ingredients::Parsable
 
@@ -72,5 +75,9 @@ class Ingredient < ApplicationRecord
 
   def distinct_units_value
     attributes['distinct_units']
+  end
+
+  def self.ingredient_id(name)
+    Ingredient.find_by('lower(default_name) = ?', name.downcase)&.id
   end
 end

@@ -5,14 +5,21 @@
 # Table name: recipes
 #
 #  id            :bigint           not null, primary key
+#  author        :string
 #  cook_time     :integer          default(0), not null
+#  default_title :string           not null
+#  image         :text
 #  prep_time     :integer          default(0), not null
 #  rating        :decimal(3, 2)    default(0.0), not null
-#  default_title :string           not null
-#  author        :string
-#  image         :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#
+# Indexes
+#
+#  index_recipes_on_cook_time      (cook_time)
+#  index_recipes_on_default_title  (default_title) UNIQUE
+#  index_recipes_on_prep_time      (prep_time)
+#  index_recipes_on_rating         (rating)
 #
 FactoryBot.define do
   factory :recipe do

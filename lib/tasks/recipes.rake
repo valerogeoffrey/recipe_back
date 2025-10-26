@@ -25,12 +25,6 @@ namespace :recipes do
     logger.info '=' * 80
     logger.info "Total recipes to process: #{parsed.size}"
     logger.info "Limit applied: #{args[:limit] || 'none'}"
-
-    # Preload caches before processing (for idempotence)
-    Recipes::Normalize.preload_all_caches
-    logger.info "Ingredient cache preloaded: #{Recipes::Normalize.ingredient_cache_size} ingredients"
-    logger.info 'RecipeIngredient cache preloaded'
-
     start_time = Time.current
     success_count = 0
     failure_count = 0
@@ -93,9 +87,6 @@ namespace :recipes do
     RecipeIngredient.delete_all
     Ingredient.delete_all
     Recipe.delete_all
-
-    Recipes::Normalize.clear_ingredient_cache
-    Recipes::Normalize.clear_recipe_ingredient_cache
     puts 'Flush tables successfully ended'
   end
 end

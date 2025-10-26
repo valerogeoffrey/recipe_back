@@ -35,21 +35,6 @@ module Recipes
         logger.debug "Processing batch of #{batch.size} recipes"
         BatchOrchestrator.process(batch)
       end
-
-      # Delegate cache management to models
-      delegate :preload_ingredient_cache, to: Ingredient
-      delegate :preload_recipe_ingredient_cache, to: RecipeIngredient
-      delegate :clear_ingredient_cache, to: Ingredient
-      delegate :clear_recipe_ingredient_cache, to: RecipeIngredient
-
-      def ingredient_cache_size
-        Ingredient.ingredient_cache.size
-      end
-
-      def preload_all_caches
-        Ingredient.preload_ingredient_cache
-        RecipeIngredient.preload_recipe_ingredient_cache
-      end
     end
   end
 end

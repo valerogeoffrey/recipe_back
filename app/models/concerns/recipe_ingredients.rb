@@ -14,7 +14,7 @@ module RecipeIngredients
 
     FRACTIONS = '¼½¾⅓⅔⅕⅙⅛⅜⅝⅞'
 
-     def self.units_regex
+    def self.units_regex
       units_with_parentheses = UNITS + ['tablespoon\\(s\\)', 'teaspoon\\(s\\)']
       /^(#{units_with_parentheses.join('|')})s?\s+/i
     end
