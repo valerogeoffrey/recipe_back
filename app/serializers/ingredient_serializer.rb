@@ -11,7 +11,8 @@
 #
 # Indexes
 #
-#  index_ingredients_on_default_name  (default_name) UNIQUE
+#  index_ingredients_on_default_name       (default_name) UNIQUE
+#  index_ingredients_on_default_name_trgm  (default_name) USING gin
 #
 
 class IngredientSerializer < ActiveModel::Serializer

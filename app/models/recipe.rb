@@ -16,10 +16,11 @@
 #
 # Indexes
 #
-#  index_recipes_on_cook_time      (cook_time)
-#  index_recipes_on_default_title  (default_title) UNIQUE
-#  index_recipes_on_prep_time      (prep_time)
-#  index_recipes_on_rating         (rating)
+#  index_recipes_on_cook_time           (cook_time)
+#  index_recipes_on_default_title       (default_title) UNIQUE
+#  index_recipes_on_default_title_trgm  (default_title) USING gin
+#  index_recipes_on_prep_time           (prep_time)
+#  index_recipes_on_rating              (rating)
 #
 class Recipe < ApplicationRecord
   include Recipes::Sortable

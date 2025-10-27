@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_24_061101) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_26_133559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_24_061101) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["default_name"], name: "index_ingredients_on_default_name", unique: true
+    t.index ["default_name"], name: "index_ingredients_on_default_name_trgm", opclass: :gin_trgm_ops, using: :gin
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|
@@ -31,6 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_24_061101) do
     t.datetime "updated_at", null: false
     t.string "unit", default: "unit", null: false
     t.index "lower((default_name)::text)", name: "index_recipe_ingredients_on_lower_default_name", unique: true
+    t.index ["default_name"], name: "index_recipe_ingredients_on_default_name_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
   end
 
@@ -56,6 +58,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_24_061101) do
     t.datetime "updated_at", null: false
     t.index ["cook_time"], name: "index_recipes_on_cook_time"
     t.index ["default_title"], name: "index_recipes_on_default_title", unique: true
+    t.index ["default_title"], name: "index_recipes_on_default_title_trgm", opclass: :gin_trgm_ops, using: :gin
     t.index ["prep_time"], name: "index_recipes_on_prep_time"
     t.index ["rating"], name: "index_recipes_on_rating"
   end

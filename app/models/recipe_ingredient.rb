@@ -15,6 +15,7 @@
 #
 # Indexes
 #
+#  index_recipe_ingredients_on_default_name_trgm   (default_name) USING gin
 #  index_recipe_ingredients_on_ingredient_id       (ingredient_id)
 #  index_recipe_ingredients_on_lower_default_name  (lower((default_name)::text)) UNIQUE
 #
@@ -33,6 +34,6 @@ class RecipeIngredient < ApplicationRecord
   validates :default_name, presence: true, uniqueness: { case_sensitive: false }
 
   def self.recipe_ingredient_exists?(name)
-    RecipeIngredient.where(default_name: name).exists?
+    RecipeIngredient.exists?(default_name: name)
   end
 end

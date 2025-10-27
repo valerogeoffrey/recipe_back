@@ -15,6 +15,7 @@
 #
 # Indexes
 #
+#  index_recipe_ingredients_on_default_name_trgm   (default_name) USING gin
 #  index_recipe_ingredients_on_ingredient_id       (ingredient_id)
 #  index_recipe_ingredients_on_lower_default_name  (lower((default_name)::text)) UNIQUE
 #

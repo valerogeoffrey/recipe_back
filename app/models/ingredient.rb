@@ -11,7 +11,8 @@
 #
 # Indexes
 #
-#  index_ingredients_on_default_name  (default_name) UNIQUE
+#  index_ingredients_on_default_name       (default_name) UNIQUE
+#  index_ingredients_on_default_name_trgm  (default_name) USING gin
 #
 class Ingredient < ApplicationRecord
   include BulkInsertable
@@ -47,10 +48,10 @@ class Ingredient < ApplicationRecord
   }
 
   def self.apply_filters(params)
-    recipes = all
-    recipes = recipes.search_by_name(params[:name]) if params[:name].present?
-    recipes = recipes.search_by_ids(params[:ids]) if params[:ids].present?
-    recipes
+    ingredients = all
+    ingredients = ingredients.search_by_name(params[:name]) if params[:name].present?
+    ingredients = ingredients.search_by_ids(params[:ids]) if params[:ids].present?
+    ingredients
   end
 
   def self.default_sort
