@@ -1,7 +1,4 @@
 # Rails.root is not yet defined
-# /!\ TODO /!\
-# It will be better to follow the rails guidelines to inject conf into app => https://guides.rubyonrails.org/configuring.html#custom-configuration
-# Need some refacto in initializers file but is highly recommended to do it before going to kubernetes
 APP_CONF ||= begin
   root_path = Rails::Application.find_root(__FILE__)
 

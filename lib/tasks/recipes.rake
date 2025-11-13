@@ -8,12 +8,16 @@ require 'active_support/inflector'
 
 namespace :recipes do
   desc 'Normalize Recipes data and populate DB (optimized)'
+
   task :normalize, [:limit] => :environment do |_t, args|
     Recipes::Normalize.reset_logger
     logger = Recipes::Normalize.logger
 
     file_path = Rails.public_path.join('recipes.json')
+
+    # I assum the file exist - could be more solid with a rescue of Errno::ENOENT
     json_conf = File.read(file_path)
+    # I assum the json is valid - could be more solid with a rescue of JSON::ParserError
     parsed = JSON.parse(json_conf)
 
     limit = args[:limit]&.to_i || 1_000_000_000

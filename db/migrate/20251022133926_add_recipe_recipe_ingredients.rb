@@ -8,6 +8,9 @@ class AddRecipeRecipeIngredients < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
+    # To be able to find all ingredient from a recipe
+    # To be able to find all recipe from an ingredient
+    # Optimized for the source.
     add_index :recipe_recipe_ingredients, %i[recipe_id recipe_ingredient_id], unique: true, name: 'index_rri_on_recipe_and_ingredient'
     add_index :recipe_recipe_ingredients, %i[recipe_ingredient_id recipe_id], name: 'index_rri_on_ingredient_and_recipe'
   end

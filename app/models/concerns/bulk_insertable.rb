@@ -13,7 +13,7 @@ module BulkInsertable
       end
 
       begin
-        insert_all(ingredients_to_insert, unique_by: :default_name)
+        Ingredient.insert_all(ingredients_to_insert, unique_by: :default_name)
       rescue ActiveRecord::RecordNotUnique => e
         Rails.logger.warn "[DUPLICATE] Ingredient duplicate: #{e.message}"
       end

@@ -23,11 +23,7 @@
 #  index_recipes_on_rating              (rating)
 #
 class RecipeSerializer < ActiveModel::Serializer
-  attributes :id, :title, :match_percentage, :relevance_score, :locale, :prep_time, :cook_time, :rating, :author, :image
-
-  def locale
-    I18n.locale.to_s
-  end
+  attributes :id, :title, :match_percentage, :relevance_score, :prep_time, :cook_time, :rating, :author, :image
 
   def title
     object.default_title

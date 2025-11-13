@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Chaos
+  # Inspired by Netflix and Chaos Monkey
+  # Prepare the system to be resiliente in case a tiers service is down ...
   module Postgresql
     extend ActiveSupport::Concern
 

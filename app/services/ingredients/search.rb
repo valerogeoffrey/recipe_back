@@ -19,7 +19,7 @@ module Ingredients
       cache_fetch(cache_key) do
         scope =
           Ingredient
-          .select('ingredients.*, LENGTH(ingredients.default_name) AS name_length')
+          .select('ingredients.*, LENGTH(ingredients.default_name) AS name_length') # to sort smallest ingredient first
           .left_joins(:recipe_ingredients)
           .group('ingredients.id')
           .select(

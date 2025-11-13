@@ -11,13 +11,14 @@ module Recipes
       @pagination = pagination
       @sort = sort
       @serializer = RecipeSerializer
+      @model = Recipe
 
       super()
     end
 
     def call
       cache_fetch(cache_key) do
-        recipes = Recipe.filter_by(filters)
+        recipes = @model.filter_by(filters)
         recipes = apply_sorting!(recipes)
         serialize!(recipes.distinct.page(page).per(per_page))
       end

@@ -6,7 +6,7 @@ module RequestCacheable
 
   included do
     def cache_ttl
-      (APP_CONF.dig(:cache, :ttl) || 30).seconds
+      (APP_CONF.dig(:cache, :ttl) || 600).seconds
     end
   end
 
